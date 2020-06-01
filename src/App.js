@@ -1,18 +1,68 @@
-import React from "react";
-import uuid from "uuid";
+import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
 import "bootstrap/dist/css/bootstrap.min.css";
 import TodoInput from "./components/TodoInput";
 import TodoList from "./components/TodoList";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 // showing vs-code github setup
 
-function App() {
-  return (
-    <React.Fragment>
-      <TodoInput />
-      <TodoList />
-    </React.Fragment>
-  );
+class App extends Component {
+  state = {
+    items: [
+      {
+        id: 1,
+        title: "wake up",
+      },
+      {
+        id: 2,
+        title: "make breakfast",
+      },
+    ],
+    id: uuidv4,
+    item: "",
+    editItem: false,
+  };
+
+  handleChange = (event) => {
+    console.log("handlechange");
+  };
+  handleSubmit = (event) => {
+    console.log("handle submit");
+  };
+  clearList = (event) => {
+    console.log("clear list");
+  };
+  handleEdit = (id) => {
+    console.log(`handle edit ${id}`);
+  };
+  handleDelete = (id) => {
+    console.log(`handle delete ${id}`);
+  };
+
+  render() {
+    return (
+      <div className="container">
+        <div className="row">
+          <div className="col-10 mx-auto col-md-8 mt-5">
+            <h3 className="text-capitalize text-center">
+              <TodoInput
+                item={this.state.item}
+                handleChange={this.handleChange}
+                handleSubmit={this.handleSubmit}
+                editItem={this.state.editItem}
+              />
+              <TodoList
+                items={this.state.items}
+                clearList={this.clearList}
+                handleDelete={this.handleDelete}
+                handleEdit={this.handleEdit}
+              />
+            </h3>
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
 export default App;
